@@ -13,16 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Assessment: P2.2
-Date: 24/09/2022
-Group: 6
-Author1: Sara Docasar Moreno - sara.docasarm@alumnos.upm.es
-Author2: Adrián Callejas Zurita - a.callejasz@alumnos.upm.es
-Author3: Javier Velázquez Martínez - j.velazquezm@alumnos.upm.es
-Description: Script based on simple_switch_13.py and modified with VLAN support
-"""
-
 from ryu.base import app_manager
 from ryu.controller import ofp_event
 from ryu.controller.handler import CONFIG_DISPATCHER, MAIN_DISPATCHER
@@ -32,8 +22,6 @@ from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
 
-# Declaration of the VLANs associated to each port - Remember to set up a scenario with X=number_of_declared_ports
-portToVLANDict = {1: 1000, 2: 500, 3: 500, 4: 1000, 5: 500, 6: 1000}
 
 class SimpleSwitch13(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
@@ -69,10 +57,10 @@ class SimpleSwitch13(app_manager.RyuApp):
         if buffer_id:
             mod = parser.OFPFlowMod(datapath=datapath, buffer_id=buffer_id,
                                     priority=priority, match=match,
-                                    instructions=inst, table_id=1)
+                                    instructions=inst)
         else:
             mod = parser.OFPFlowMod(datapath=datapath, priority=priority,
-                                    match=match, instructions=inst, table_id=1)
+                                    match=match, instructions=inst)
         datapath.send_msg(mod)
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
@@ -98,7 +86,6 @@ class SimpleSwitch13(app_manager.RyuApp):
         src = eth.src
 
         dpid = datapath.id
-
         self.mac_to_port.setdefault(dpid, {})
 
         self.logger.info("packet in %s %s %s %s", dpid, src, dst, in_port)
@@ -111,17 +98,7 @@ class SimpleSwitch13(app_manager.RyuApp):
         else:
             out_port = ofproto.OFPP_FLOOD
 
-        # We change the initial actions to empty. If we let this value empty is the same that dropping the packet
-        actions = []
-
-        # We check that this is not a diffusive packet and if the 'in' and 'out' port belong to the same VLAN. If not, we drop the packet
-        if out_port != ofproto.OFPP_FLOOD:
-            if portToVLANDict[in_port] == portToVLANDict[out_port]:
-                actions.append(parser.OFPActionOutput(out_port))  # We send the packet to that port where the condition is fullfil
-        else:  # If it is diffusive we send the packet to all the ports where the VLAN is the same than in the sender port
-            for port in portToVLANDict:
-                if (port != in_port) & (portToVLANDict[in_port] == portToVLANDict[port]):
-                    actions.append(parser.OFPActionOutput(port))  # We send the packet to those ports where the condition is fullfil
+        actions = [parser.OFPActionOutput(out_port)]
 
         # install a flow to avoid packet_in next time
         if out_port != ofproto.OFPP_FLOOD:

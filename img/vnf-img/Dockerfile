@@ -28,4 +28,4 @@ COPY vnx_config_nat /usr/bin/
 COPY isc-dhcp-server /etc/default/isc-dhcp-server
 COPY dhcpd.conf /etc/dhcp/dhcpd.conf 
 COPY README.txt /home
-COPY qos_simple_switch_13.py /home
+
