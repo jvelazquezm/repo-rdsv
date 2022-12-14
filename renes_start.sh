@@ -56,7 +56,20 @@ $CPE_EXEC service openvswitch-switch start
 
 ## 3. En VNF:access agregar un bridge y configurar IPs y rutas
 echo "## 3. En VNF:access agregar un bridge y configurar IPs y rutas"
+
+
 $ACC_EXEC ovs-vsctl add-br brint
+echo "## 3.1 Configurar controlador ryu"
+$ACC_EXEC ovs-vsctl set bridge brint protocols=OpenFlow13
+$ACC_EXEC ovs-vsctl set-fail-mode brint secure
+$ACC_EXEC ovs-vsctl set bridge brint other-config:datapath-id=0000000000000001
+$ACC_EXEC ovs-vsctl set-controller brint tcp:127.0.0.1:6633
+$ACC_EXEC ovs-vsctl set-manager ptcp:6632
+$ACC_EXEC sed '/OFPFlowMod(/,/)/s/)/, table_id=1)/' /usr/lib/python3/dist-packages/ryu/app/simple_switch_13.py > /usr/lib/python3/dist-packages/ryu/app/qos_simple_switch_13.py
+$ACC_EXEC ryu-manager ryu.app.rest_qos ryu.app.rest_conf_switch /usr/lib/python3/dist-packages/ryu/app/qos_simple_switch_13.py
+
+
+
 $ACC_EXEC ifconfig net1 $VNFTUNIP/24
 $ACC_EXEC ovs-vsctl add-port brint vxlanacc -- set interface vxlanacc type=vxlan options:remote_ip=$HOMETUNIP
 $ACC_EXEC ovs-vsctl add-port brint vxlanint -- set interface vxlanint type=vxlan options:remote_ip=$IPCPE options:key=inet options:dst_port=8742
