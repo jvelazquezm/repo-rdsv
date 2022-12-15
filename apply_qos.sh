@@ -23,8 +23,8 @@ $ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_r
 
 #if [ $1 = "vcpe-1" ]; then
 
-IPH11=$($CPE_EXEC grep -m 1 -B 9 h11 /var/lib/dhcp/dhcpd.leases | grep -m1 "" | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
-IPH12=$($CPE_EXEC grep -m 1 -B 9 h12 /var/lib/dhcp/dhcpd.leases | grep -m1 "" | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+IPH11=$($CPE_EXEC egrep "lease|hostname|\}" /var/lib/dhcp/dhcpd.leases | grep -m 1 -B 1 h11 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+IPH12=$($CPE_EXEC egrep "lease|hostname|\}" /var/lib/dhcp/dhcpd.leases | grep -m 1 -B 1 h12 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
 sleep 10
 
 echo "## 7. Configuracion QoS red residencial"
