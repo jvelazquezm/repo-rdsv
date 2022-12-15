@@ -5,16 +5,26 @@
 export OSMNS
 export KID
 
+# MTU config
+sudo ip link set dev eth1 mtu 1400
+
+# Repo download
+#mkdir shared
+#cd shared
+#git clone https://github.com/jvelazquezm/repo-rdsv.git
+#cd repo-rdsv
+
 # Get cluster info
 KID=$(osm k8scluster-list --literal | grep _id | sed -r 's/.{9}//')
 export KID=$(osm k8scluster-list --literal | grep _id | sed -r 's/.{9}//')
-sleep 5
+sleep 10
 # Get namespace
 OSMNS=$(osm k8scluster-show --literal $KID | grep -A1 projects_read | sed '1d' | sed -r 's/.{6}//')
 export OSMNS=$(osm k8scluster-show --literal $KID | grep -A1 projects_read | sed '1d' | sed -r 's/.{6}//')
-sleep 5
+sleep 10
 #Create k8s repo
 osm repo-add --type helm-chart helmchartrepo https://jvelazquezm.github.io/repo-rdsv
+
 sleep 2
 #Add OSM Packages
 osm nfpkg-create pck/accessknf_vnfd.tar.gz
@@ -27,4 +37,5 @@ sleep 45
 #Save pod names in variables
 ACCPOD=$(kubectl get pods -n $OSMNS --no-headers -o custom-columns=":metadata.name" | grep access)
 CPEPOD=$(kubectl get pods -n $OSMNS --no-headers -o custom-columns=":metadata.name" | grep cpe)
+
 

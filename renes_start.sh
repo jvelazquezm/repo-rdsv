@@ -102,12 +102,13 @@ $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
 echo "## 5. En VNF:cpe iniciar Servidor DHCP"
 $CPE_EXEC sed -i 's/homeint/brint/' /etc/default/isc-dhcp-server
 $CPE_EXEC service isc-dhcp-server restart
-sleep 90
+
 
 ## 6. En VNF:cpe activar NAT para dar salida a Internet
 echo "## 6. En VNF:cpe activar NAT para dar salida a Internet"
 $CPE_EXEC /usr/bin/vnx_config_nat brint net1
 
+sleep 40
 
 export ACC_EXEC
 export CPE_EXEC
