@@ -1,5 +1,13 @@
 #!/bin/bash
 
+set -u # to verify variables are defined
+: $ACC_EXEC
+: $CPE_EXEC
+
+
+echo $ACC_EXEC
+echo $CPE_EXEC
+
 $ACC_EXEC curl -X PUT -d '"tcp:127.0.0.1:6632"' http://localhost:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
 
  
@@ -15,9 +23,15 @@ $ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_r
 
 #if [ $1 = "vcpe-1" ]; then
 
-IPH11=$($ACC_EXEC grep -m 1 -B 9 h11 /var/lib/dhcp/dhcpd.leases | grep -m1 "" | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
-IPH12=$($ACC_EXEC grep -m 1 -B 9 h12 /var/lib/dhcp/dhcpd.leases | grep -m1 "" | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
-echo "## 3.2 Configuracion QoS red residencial"
+IPH11=$($CPE_EXEC grep -m 1 -B 9 h11 /var/lib/dhcp/dhcpd.leases | grep -m1 "" | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+IPH12=$($CPE_EXEC grep -m 1 -B 9 h12 /var/lib/dhcp/dhcpd.leases | grep -m1 "" | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+sleep 10
+
+echo "## 7. Configuracion QoS red residencial"
+
+echo $IPH11
+echo $IPH12
+
 $ACC_EXEC curl -X POST -d '{"match": {"nw_dst": "'$IPH11'"}, "actions":{"queue": "1"}}' http://localhost:8080/qos/rules/0000000000000001
 $ACC_EXEC curl -X POST -d '{"match": {"nw_dst": "'$IPH12'"}, "actions":{"queue": "0"}}' http://localhost:8080/qos/rules/0000000000000001
 

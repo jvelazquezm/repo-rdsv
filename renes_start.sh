@@ -83,8 +83,6 @@ $ACC_EXEC ifconfig vxlanint up
 
 $ACC_EXEC ip route add $IPCPE/32 via $K8SGW
 
-./apply_qos.sh $ACC_EXEC
-
 
 ## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas
 echo "## 4. En VNF:cpe agregar un bridge y configurar IPs y rutas"
@@ -104,8 +102,14 @@ $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
 echo "## 5. En VNF:cpe iniciar Servidor DHCP"
 $CPE_EXEC sed -i 's/homeint/brint/' /etc/default/isc-dhcp-server
 $CPE_EXEC service isc-dhcp-server restart
-sleep 10
+sleep 90
 
 ## 6. En VNF:cpe activar NAT para dar salida a Internet
 echo "## 6. En VNF:cpe activar NAT para dar salida a Internet"
 $CPE_EXEC /usr/bin/vnx_config_nat brint net1
+
+
+export ACC_EXEC
+export CPE_EXEC
+
+./apply_qos.sh
