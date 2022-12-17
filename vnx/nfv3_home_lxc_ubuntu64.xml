@@ -73,11 +73,22 @@ SPAIN
       <ipv4>10.255.0.2/24</ipv4>
     </if>
     <exec seq="on_boot" type="verbatim">
+
         service openvswitch-switch start
         sleep 5
         ovs-vsctl add-br br0
+
         ovs-vsctl add-port br0 eth1
-        ovs-vsctl add-port br0 vxlan1 -- set interface vxlan1 type=vxlan options:remote_ip=10.255.0.1
+        <!--ovs-vsctl add-port br0 vxlan1 set interface vxlan1 type=vxlan options:remote_ip=10.255.0.1 -->
+
+        ip link add vxlan1 type vxlan id 0 remote 10.255.0.1 dstport 4789 dev eth2
+        ovs-vsctl add-port br0 vxlan1
+        ifconfig vxlan1 up
+
+        ovs-vsctl set bridge br0 protocols=OpenFlow13
+        ovs-vsctl set-manager ptcp:6632
+        ovs-vsctl set-controller br0 tcp:10.255.0.1:6633
+        
     </exec>
   </vm>
   <vm name="h21" type="lxc" exec_mode="lxc-attach" arch="x86_64">
@@ -114,7 +125,15 @@ SPAIN
         sleep 5
         ovs-vsctl add-br br0
         ovs-vsctl add-port br0 eth1
-        ovs-vsctl add-port br0 vxlan1 -- set interface vxlan1 type=vxlan options:remote_ip=10.255.0.3
+        <!--ovs-vsctl add-port br0 vxlan1 set interface vxlan1 type=vxlan options:remote_ip=10.255.0.3 -->
+
+        ip link add vxlan1 type vxlan id 0 remote 10.255.0.3 dstport 4789 dev eth2
+        ovs-vsctl add-port br0 vxlan1
+        ifconfig vxlan1 up
+
+        ovs-vsctl set bridge br0 protocols=OpenFlow13
+        ovs-vsctl set-manager ptcp:6632
+        ovs-vsctl set-controller br0 tcp:10.255.0.3:6633
     </exec>
   </vm>
 </vnx>

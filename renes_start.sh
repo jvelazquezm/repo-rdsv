@@ -108,9 +108,9 @@ $CPE_EXEC service isc-dhcp-server restart
 echo "## 6. En VNF:cpe activar NAT para dar salida a Internet"
 $CPE_EXEC /usr/bin/vnx_config_nat brint net1
 
-sleep 40
+#sleep 80
 
-export ACC_EXEC
-export CPE_EXEC
+#export ACC_EXEC
+#export CPE_EXEC
 
-./apply_qos.sh
+#./apply_qos.sh
