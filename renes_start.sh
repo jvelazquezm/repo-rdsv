@@ -96,16 +96,20 @@ $CPE_EXEC ip route add $IPACCESS/32 via $K8SGW
 $CPE_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
 
+# 5. Configurar arpwatch
+echo "## 5. Configurar arpwatch"
+$CPE_EXEC sed -i '24c\INTERFACES="brint net1 eth0"' /etc/default/arpwatch
+$CPE_EXEC /etc/init.d/arpwatch start
 
 
 ## 5. En VNF:cpe iniciar Servidor DHCP
-echo "## 5. En VNF:cpe iniciar Servidor DHCP"
+echo "## 6. En VNF:cpe iniciar Servidor DHCP"
 $CPE_EXEC sed -i 's/homeint/brint/' /etc/default/isc-dhcp-server
 $CPE_EXEC service isc-dhcp-server restart
 
 
 ## 6. En VNF:cpe activar NAT para dar salida a Internet
-echo "## 6. En VNF:cpe activar NAT para dar salida a Internet"
+echo "## 7. En VNF:cpe activar NAT para dar salida a Internet"
 $CPE_EXEC /usr/bin/vnx_config_nat brint net1
 
 #sleep 80

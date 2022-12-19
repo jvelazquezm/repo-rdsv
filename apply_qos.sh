@@ -31,7 +31,7 @@ $ACC_EXEC curl -X POST -d '{"port_name": "vxlanacc", "type": "linux-htb", "max_r
  
 
 
-if [ $2 = "vcpe-1" ]; then
+if [ $1 = "renes1" ]; then
 
     IPH11=$($CPE_EXEC dhcp-lease-list | grep h11 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
     IPH12=$($CPE_EXEC dhcp-lease-list | grep h12 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
@@ -45,7 +45,7 @@ if [ $2 = "vcpe-1" ]; then
     $ACC_EXEC curl -X POST -d '{"match": {"nw_dst": "'$IPH11'"}, "actions":{"queue": "1"}}' http://localhost:8080/qos/rules/0000000000000001
     $ACC_EXEC curl -X POST -d '{"match": {"nw_dst": "'$IPH12'"}, "actions":{"queue": "0"}}' http://localhost:8080/qos/rules/0000000000000001
 
-elif [ $2 = "vcpe-2" ]; then
+elif [ $1 = "renes2" ]; then
 
     IPH21=$($CPE_EXEC dhcp-lease-list | grep h21 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
     IPH22=$($CPE_EXEC dhcp-lease-list | grep h22 | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")

@@ -19,7 +19,7 @@ ACC_EXEC="$KUBECTL exec -n $OSMNS $VACC --"
 CPE_EXEC="$KUBECTL exec -n $OSMNS $VCPE --"
 
 
-if [ $2 = "vcpe-1" ]; then
+if [ $1 = "renes1" ]; then
 
     $ACC_EXEC curl -X PUT -d '"tcp:10.255.0.2:6632"' http://localhost:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
 
@@ -39,7 +39,7 @@ if [ $2 = "vcpe-1" ]; then
     $ACC_EXEC curl -X POST -d '{"match": {"nw_src": "'$IPH11'"}, "actions":{"queue": "1"}}' http://localhost:8080/qos/rules/0000000000000001
     $ACC_EXEC curl -X POST -d '{"match": {"nw_src": "'$IPH12'"}, "actions":{"queue": "0"}}' http://localhost:8080/qos/rules/0000000000000001
 
-elif [ $2 = "vcpe-2" ]; then
+elif [ $1 = "renes2" ]; then
 
     $ACC_EXEC curl -X PUT -d '"tcp:10.255.0.4:6632"' http://localhost:8080/v1.0/conf/switches/0000000000000001/ovsdb_addr
 
