@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "arpwatchchart.fullname" . }}-test-connection"
+  labels:
+    {{- include "arpwatchchart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "arpwatchchart.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
