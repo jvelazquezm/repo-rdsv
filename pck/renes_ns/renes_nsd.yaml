@@ -35,7 +35,7 @@ nsd:
                 constituent-cpd-id: mgmt-ext
             virtual-link-profile-id: mgmtnet
         vnfd-id: cpeknf
-      - id: arpwatch	
+      - id: arpwatch
         virtual-link-connectivity:
           - constituent-cpd-id:
               - constituent-base-element-id: arpwatch

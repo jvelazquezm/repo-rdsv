@@ -6,13 +6,13 @@ export OSMNS
 export KID
 
 # MTU config
-sudo ip link set dev eth1 mtu 1400
+#sudo ip link set dev eth1 mtu 1400
 
 # Repo download
-mkdir shared
-cd shared
-git clone https://github.com/jvelazquezm/repo-rdsv.git
-cd repo-rdsv
+#mkdir shared
+#cd shared
+#git clone https://github.com/jvelazquezm/repo-rdsv.git
+#cd repo-rdsv
 
 # Get cluster info
 KID=$(osm k8scluster-list --literal | grep _id | sed -r 's/.{9}//')

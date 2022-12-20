@@ -11,7 +11,7 @@ vnfd:
     - id: mgmtnet
   kdu:
   - name: repos
-    helm-chart: helmchartrepo/arpwatch
+    helm-chart: helmchartrepo/arpwatchchart
   mgmt-cp: mgmt-ext
   product-name: arpwatchknf
   provider: GUI

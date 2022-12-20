@@ -6,5 +6,6 @@ sleep 20
 osm nspkg-delete renes
 osm nfpkg-delete accessknf
 osm nfpkg-delete cpeknf
+osm nfpkg-delete arpwatchknf
 osm repo-delete helmchartrepo
 
