@@ -56,7 +56,7 @@ A continuación se presenta el escenario final que se ha desplegado, que cuenta 
 - Una KNF:arpwatch,
 - Una KNF:vcpe, que integrará las funciones de servidor DHCP, NAT y reenvío de IP.
 
-![Escenario](https://github.com/jvelazquezm/repo-rdsv/blob/main/escenario/escenario.svg)
+![Escenario](https://github.com/jvelazquezm/repo-rdsv/blob/main/escenario/escenario.jpg)
 
 Además, hay que tener en cuenta que:
 
