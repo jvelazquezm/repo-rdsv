@@ -1,6 +1,6 @@
 <img  align="right" width="150" style="float: right;" src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/CEI/LOGOTIPO%20leyenda%20color%20JPG%20p.png">
 
-<br/><br/><br/>
+<br/>
 
 # RDSV - PRÁCTICA FINAL - Grupo 6
 
@@ -56,7 +56,7 @@ A continuación se presenta el escenario final que se ha desplegado, que cuenta 
 - Una KNF:arpwatch,
 - Una KNF:vcpe, que integrará las funciones de servidor DHCP, NAT y reenvío de IP.
 
-![Escenario](https://github.com/jvelazquezm/repo-rdsv/blob/main/escenario/escenario.png)
+![Escenario](https://github.com/jvelazquezm/repo-rdsv/blob/main/escenario/escenario.svg)
 
 Además, hay que tener en cuenta que:
 
