@@ -124,9 +124,10 @@ ifconfig
 
 ## Pruebas de conectividad, calidad de servicio y arpwatch
 
-- Para probar la conectividad IPv4 desde la red residencial hacia Internet realizamos el siguiente ping desde cada uno los hosts, en la máquina RDSV-K8S:
+- Para probar la conectividad IPv4 desde la red residencial hacia Internet y s1 realizamos el siguiente ping desde cada uno los hosts, en la máquina RDSV-K8S:
 ```
-ping 8.8.8.8
+ping -c 5 10.100.3.2
+ping -c 5 8.8.8.8
 ```
 - Para probar la calidad de servicio, se hace uso de la herramienta iperf3. Para ello, se realizan pruebas desde diversas máquinas y debemos tener en cuenta que se debe cumplir lo siguiente: 
     - Para la red residencial: 12 Mbps de bajada (y 6 Mbps de subida)
@@ -137,9 +138,11 @@ ping 8.8.8.8
 ```
 - Para probar la funcionalidad del arpwatch, comprobamos que el registro de las MACs de la red residencial. Para ello, debemos realizar:
 ```
-kubectl exec -n $OSMNS $VARP -- /bin/bash
-cat /etc/default/arpwatch/brint.dat
-cat /etc/default/arpwatch/eth0.dat
+kubectl -n $OSMNS get pods
+ARPPOD=<nombre del pod de la KNF:access>
+kubectl -n $OSMNS exec -it $ARPPOD -- /bin/bash
+cat /var/lib/arpwatch/brint.dat
+cat /var/lib/arpwatch/eth0.dat
 ```
 
 ## Posibles errores a tener en cuenta
