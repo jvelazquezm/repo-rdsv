@@ -84,7 +84,7 @@ $ACC_EXEC ovs-vsctl add-port brint vxlanacc
 $ACC_EXEC ovs-vsctl add-port brint vxlanint1
 $ACC_EXEC ifconfig vxlanacc up
 $ACC_EXEC ifconfig vxlanint1 up
-$ACC_EXEC ip route add $IPARP/32 via $K8SGW
+$ACC_EXEC ip route add $IPCPE/32 via $K8SGW
 
 ## 4. Tuneles ARP
 echo "## 4. Configurar tuneles ARP"
@@ -102,10 +102,8 @@ $ARP_EXEC ifconfig vxlanint2 up
 #$ARP_EXEC ovs-vsctl add-port brint vxlanint1 -- set interface vxlanint1 type=vxlan options:remote_ip=$IPACCESS options:key=1 options:dst_port=8742
 #$ARP_EXEC ovs-vsctl add-port brint vxlanint2 -- set interface vxlanint2 type=vxlan options:remote_ip=$IPCPE options:key=1 options:dst_port=8742
 
-$ARP_EXEC ip route add $IPACCESS/32 via $K8SGW
-$ARP_EXEC ip route add $IPCPE/32 via $K8SGW
-#$ARP_EXEC ifconfig eth0 $IPCPE/32 
-#$ARP_EXEC ifconfig eth0 $IPACCESS/32
+#$ARP_EXEC ip route add $IPCPE/32 via $K8SGW
+
 
 ## 5. En VNF:cpe agregar un bridge y configurar IPs y rutas
 echo "## 5. En VNF:cpe agregar un bridge y configurar IPs y rutas"
@@ -114,17 +112,15 @@ $CPE_EXEC ifconfig brint $VCPEPRIVIP/24
 $CPE_EXEC ovs-vsctl add-port brint vxlanint2 -- set interface vxlanint2 type=vxlan options:remote_ip=$IPARP options:key=2 options:dst_port=8742
 $CPE_EXEC ifconfig brint mtu 1400
 $CPE_EXEC ifconfig net1 $VCPEPUBIP/24
-$CPE_EXEC ip route add $IPARP/32 via $K8SGW
+$CPE_EXEC ip route add $IPACCESS/32 via $K8SGW
 $CPE_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
 
 ## 6. Configurar arpwatch
 echo "## 6. Configurar arpwatch"
-$ARP_EXEC sed -i '24c\INTERFACES="eth0"' /etc/default/arpwatch
-$ARP_EXEC /etc/init.d/arpwatch start
 
-$CPE_EXEC sed -i '24c\INTERFACES="brint net1 eth0"' /etc/default/arpwatch
-$CPE_EXEC /etc/init.d/arpwatch start
+$ARP_EXEC sed -i '24c\INTERFACES="brint net1 eth0"' /etc/default/arpwatch
+$ARP_EXEC /etc/init.d/arpwatch start
 
 ## 7. En VNF:cpe iniciar Servidor DHCP
 echo "## 7. En VNF:cpe iniciar Servidor DHCP"
