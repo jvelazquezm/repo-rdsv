@@ -3,34 +3,34 @@ entries:
   accesschart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-20T18:30:46.774470975+01:00"
+    created: "2022-12-21T18:27:02.287153847+01:00"
     description: A Helm chart for Kubernetes
     digest: fa5f7aba94c2b30276fd42ac5da4796335483714a31156da709e5732a6c09893
     name: accesschart
     type: application
     urls:
-    - https://jvelazquezm.github.io/repo-rdsv/accesschart-0.1.0.tgz
+    - https://jvelazquezm.gitgub.io/repo-rdsv/accesschart-0.1.0.tgz
     version: 0.1.0
   arpwatchchart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-20T18:30:46.774863478+01:00"
+    created: "2022-12-21T18:27:02.287521049+01:00"
     description: A Helm chart for Kubernetes
-    digest: f0f24a1d1afbda703a4d404bd7dd62f74dd2813030a3a9f7ca29ccead0f111bd
+    digest: d5be9211044138211f08255fede09c690511e1e0bf452a024e9ac47e73c33fd4
     name: arpwatchchart
     type: application
     urls:
-    - https://jvelazquezm.github.io/repo-rdsv/arpwatchchart-0.1.0.tgz
+    - https://jvelazquezm.gitgub.io/repo-rdsv/arpwatchchart-0.1.0.tgz
     version: 0.1.0
   cpechart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-12-20T18:30:46.775283123+01:00"
+    created: "2022-12-21T18:27:02.287871614+01:00"
     description: A Helm chart for Kubernetes
-    digest: 8979b7ece9c9603d38eaa9a55899122fbb3f12ee2de75b18a066bd3fbbb03489
+    digest: e1db21400d1419cc8337e6b0090aabdd582795e9a53782ba99c4095ca4399dd1
     name: cpechart
     type: application
     urls:
-    - https://jvelazquezm.github.io/repo-rdsv/cpechart-0.1.0.tgz
+    - https://jvelazquezm.gitgub.io/repo-rdsv/cpechart-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-20T18:30:46.773232931+01:00"
+generated: "2022-12-21T18:27:02.286660839+01:00"

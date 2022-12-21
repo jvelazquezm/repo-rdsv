@@ -13,8 +13,8 @@ spec:
       {{- include "cpechart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: extnet1
+      #annotations:
+        #k8s.v1.cni.cncf.io/networks: extnet1
       labels:
         {{- include "cpechart.selectorLabels" . | nindent 8 }}
     spec:
