@@ -98,11 +98,8 @@ $ARP_EXEC ovs-vsctl add-port brint vxlanint1
 $ARP_EXEC ovs-vsctl add-port brint vxlanint2
 $ARP_EXEC ifconfig vxlanint1 up
 $ARP_EXEC ifconfig vxlanint2 up
-
-#$ARP_EXEC ovs-vsctl add-port brint vxlanint1 -- set interface vxlanint1 type=vxlan options:remote_ip=$IPACCESS options:key=1 options:dst_port=8742
-#$ARP_EXEC ovs-vsctl add-port brint vxlanint2 -- set interface vxlanint2 type=vxlan options:remote_ip=$IPCPE options:key=1 options:dst_port=8742
-
-#$ARP_EXEC ip route add $IPCPE/32 via $K8SGW
+$ARP_EXEC ip route add $IPACCESS/32 via $K8SGW
+$ARP_EXEC ip route add $IPCPE/32 via $K8SGW
 
 
 ## 5. En VNF:cpe agregar un bridge y configurar IPs y rutas
@@ -118,9 +115,11 @@ $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
 
 ## 6. Configurar arpwatch
 echo "## 6. Configurar arpwatch"
-
-$ARP_EXEC sed -i '24c\INTERFACES="brint net1 eth0"' /etc/default/arpwatch
+$ARP_EXEC sed -i '24c\INTERFACES="eth0"' /etc/default/arpwatch
 $ARP_EXEC /etc/init.d/arpwatch start
+
+$CPE_EXEC sed -i '24c\INTERFACES="brint net1 eth0"' /etc/default/arpwatch
+$CPE_EXEC /etc/init.d/arpwatch start
 
 ## 7. En VNF:cpe iniciar Servidor DHCP
 echo "## 7. En VNF:cpe iniciar Servidor DHCP"
