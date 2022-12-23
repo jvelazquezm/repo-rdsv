@@ -80,7 +80,7 @@ chmod +x <nombre_script.sh>
 ```
 - Modificar las imágenes utilizadas por VNX para que incluyan iperf3 para las pruebas de QoS. Para ello ejecutar el siguiente comando, hacer login con root/xxxx e instalar los paquetes deseados. Finalmente, parar el contenedor con `halt -p`.
 ```
-vnx --modify-rootfs /usr/share/vnx/filesystems/vnx_rootfs_lxc_ubuntu64-20.04-v025-vnxlab/
+sudo vnx --modify-rootfs /usr/share/vnx/filesystems/vnx_rootfs_lxc_ubuntu64-20.04-v025-vnxlab/
 ```
 - En la máquina de OSM compruebe que tiene configurado un cluster de k8s mediante el comando:
 ```
