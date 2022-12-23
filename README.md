@@ -72,7 +72,6 @@ A continuación, se presentan los pasos a seguir para inicializar ambas redes re
 - Iniciar las dos máquinas virtuales en el laboratorio o en el ordenador personal: `RDSV-K8S | RDSV-OSM`
 - Acceder al directorio compartido y clonar el repositorio en ambas máquinas con el comando:
 ```
-cd shared
 git clone https://github.com/jvelazquezm/repo-rdsv.git
 ```
 - Comprobar que scripts que se van a ejecutar cuentan con permisos de ejecución. En caso contrario, ejecutar:
