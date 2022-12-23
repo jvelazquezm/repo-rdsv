@@ -6,7 +6,7 @@ export OSMNS
 export KID
 
 # MTU config
-#sudo ip link set dev eth1 mtu 1400
+sudo ip link set dev eth1 mtu 1400
 
 # Repo download
 #mkdir shared

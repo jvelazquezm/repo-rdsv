@@ -84,7 +84,7 @@ $ACC_EXEC ovs-vsctl add-port brint vxlanacc
 $ACC_EXEC ovs-vsctl add-port brint vxlanint1
 $ACC_EXEC ifconfig vxlanacc up
 $ACC_EXEC ifconfig vxlanint1 up
-$ACC_EXEC ip route add $IPCPE/32 via $K8SGW
+$ACC_EXEC ip route add $IPARP/32 via $K8SGW
 
 ## 4. Tuneles ARP
 echo "## 4. Configurar tuneles ARP"
@@ -109,7 +109,7 @@ $CPE_EXEC ifconfig brint $VCPEPRIVIP/24
 $CPE_EXEC ovs-vsctl add-port brint vxlanint2 -- set interface vxlanint2 type=vxlan options:remote_ip=$IPARP options:key=2 options:dst_port=8742
 $CPE_EXEC ifconfig brint mtu 1400
 $CPE_EXEC ifconfig net1 $VCPEPUBIP/24
-$CPE_EXEC ip route add $IPACCESS/32 via $K8SGW
+$CPE_EXEC ip route add $IPARP/32 via $K8SGW
 $CPE_EXEC ip route del 0.0.0.0/0 via $K8SGW
 $CPE_EXEC ip route add 0.0.0.0/0 via $VCPEGW
 
