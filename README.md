@@ -133,6 +133,19 @@ ping -c 5 8.8.8.8
     - Para hX1: 8 Mbps mínimo de bajada (y 4 Mbps mínimo de subida)
     - Para hX2: 4 Mbps máximo de bajada (y 2 Mbps máximo de subida)
 ```
+#IPERF BAJADA
+#En los hosts:
+iperf3 -s -i 1 -p 5002
+
+#En el CPE(el 20M se refiere a velocidad 20 Mbps):
+iperf3 -c 192.168.255.2X -p 5002 -u -b 20M -l 1200
+
+#IPERF SUBIDA
+#En el CPE:
+iperf3 -s -i 1 -p 5002
+
+#En los hosts (el 20M se refiere a velocidad 20 Mbps):
+iperf3 -c 192.168.255.1 -p 5002 -u -b 20M -l 1200
 
 ```
 - Para probar la funcionalidad del arpwatch, comprobamos que el registro de las MACs de la red residencial. Para ello, debemos realizar:
