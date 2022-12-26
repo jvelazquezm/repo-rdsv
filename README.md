@@ -112,9 +112,12 @@ cd repo-rsdv
 ```
 ./osm_renes_all.sh $OSMNS
 ```
-- En este punto debemos esperar a que el servidor DHCP asigne a los hosts la ip. Para comprobar que se ha realizado, en la máquina RDSV-K8S, en la terminal de cada uno de ellos, ejecutamos:
+- En este punto debemos esperar a que el servidor DHCP asigne a los hosts la ip. Para comprobar que se ha realizado, en la máquina RDSV-K8S, en la terminal de cada uno de ellos, ejecutamos el primer comando, si no, lo forzamos con el segundo:
 ```
 ifconfig
+```
+```
+sudo dhclient eth1
 ```
 - Ejecutamos el script de configuración de la QoS descendente y ascendente para las dos redes residenciales, apply_qos_all.sh.
 ```
