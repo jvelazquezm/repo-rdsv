@@ -14,6 +14,12 @@ sudo ip link set dev eth1 mtu 1400
 #git clone https://github.com/jvelazquezm/repo-rdsv.git
 #cd repo-rdsv
 
+# Configure private repo
+sudo echo -e '{\n"insecure-registries" : ["192.168.56.11:32000"]\n}' | sudo tee -a /etc/docker/daemon.json
+sudo systemctl restart docker
+curl http://192.168.56.11:32000/v2/_catalog
+sleep 160
+
 # Get cluster info
 KID=$(osm k8scluster-list --literal | grep _id | sed -r 's/.{9}//')
 export KID=$(osm k8scluster-list --literal | grep _id | sed -r 's/.{9}//')
